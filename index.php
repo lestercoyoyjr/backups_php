@@ -28,6 +28,9 @@
                 $zip -> addFile($salida_sql, $fileName);
             }
         }
+        // delete sql file
+        unlink($location);
+
         $zip ->close();
     }
     
