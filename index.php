@@ -12,6 +12,25 @@
     $salida_sql = "C:\\xampp\\mysql\\bin\\mysqldump.exe -uroot ".$db_name." >".$location;
     exec($salida_sql);
 
+    // Enter the name to creating zipped directory
+    $zipcreated = $db_name."_".date("Ymd-His").".zip";
+  
+    // Create new zip class
+    $zip = new ZipArchive();
+
+    if($zip -> open($zipcreated, ZipArchive::CREATE ) === TRUE) {
+      
+        // Store the path into the variable
+        $dir = opendir($bklac);
+           
+        while($salida_sql = readdir($dir)) {
+            if(is_file($salida_sql)) {
+                $zip -> addFile($salida_sql, $fileName);
+            }
+        }
+        $zip ->close();
+    }
+    
     // // Create zip file
     // $zip = new ZipArchive();
 
